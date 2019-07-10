@@ -23,7 +23,7 @@ def buildSource(){
 
 def cancelStaleBuilds() {
 
-    stage('Cancel Stale Builds') {
+    
         currentBuildNum = currentBuild.number
         currentBranch = env.BRANCH
 
@@ -44,7 +44,7 @@ def cancelStaleBuilds() {
             println("[cancelStaleBuilds] Caught exception: ${e}")
         }
     }
-}
+
 
   
 }

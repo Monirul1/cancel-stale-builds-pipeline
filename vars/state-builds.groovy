@@ -6,8 +6,6 @@ def buildSource(){
 
 }
 
-
-
 def cancelStaleBuilds() {
 
     stage('Cancel Stale Builds') {

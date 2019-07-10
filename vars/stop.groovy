@@ -1,11 +1,24 @@
 def call() {
+  node{
+    stage('testing'){
+    
+      
+    cancelStaleBuilds()
+    buildSource()
+    
+    
+    }
+  }
+  
 def buildSource(){
+  stage('test'){
   for(i = 0; i < 200000; i++)
   {
     print "."
   }
-  
 }
+}
+  
 def cancelStaleBuilds() {
     stage('Cancel Stale Builds') {
         currentBuildNum = currentBuild.number
@@ -27,7 +40,5 @@ def cancelStaleBuilds() {
         }
     }
 }
-cancelStaleBuilds()
-buildSource()
 
 }

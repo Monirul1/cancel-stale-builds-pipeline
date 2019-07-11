@@ -21,7 +21,7 @@ def cancelStaleBuilds() {
                 def buildBranch = build.getEnvironment().BRANCH
                 if (build.getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
                     build.doKill()
-                    println("[cancelStaleBuilds] Build Cancelled: #${buildNum} ${buildBranch}")
+                    log("[cancelStaleBuilds] Build Cancelled: #${buildNum} ${buildBranch}")
                     build.description = "Superseded by build #${currentBuildNum}"
                 }
             }
@@ -31,4 +31,8 @@ def cancelStaleBuilds() {
             println("[cancelStaleBuilds] Caught exception: ${e}")
         }
     }
+}
+
+def log(String string){
+  println("* [Jenkinsfile] ${string}")
 }

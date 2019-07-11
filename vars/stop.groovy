@@ -1,4 +1,9 @@
 def call(){
+cancelStaleBuilds()
+buildSource()
+  
+}
+
 def buildSource(){
   for(i = 0; i < 200000; i++)
   {
@@ -26,8 +31,4 @@ def cancelStaleBuilds() {
             println("[cancelStaleBuilds] Caught exception: ${e}")
         }
     }
-}
-cancelStaleBuilds()
-buildSource()
-  
 }

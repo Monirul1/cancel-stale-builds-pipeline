@@ -26,9 +26,9 @@ def cancelStaleBuilds() {
                 }
             }
         } catch (NoSuchElementException ex) {
-            println('[cancelStaleBuilds] Caught NoSuchElementException. No action needed.')
+            log('[cancelStaleBuilds] Caught NoSuchElementException. No action needed.')
         } catch (Exception e) {
-            println("[cancelStaleBuilds] Caught exception: ${e}")
+            log("[cancelStaleBuilds] Caught exception: ${e}")
         }
     }
 }

@@ -1,4 +1,12 @@
 def call(){
-def builds = currentBuild.rawBuild.getParent().builds
-println("BUILDS ${builds}")
+  
+def list = []
+          list.add(currentBuild.rawBuild.getParent().builds)
+
+          list.each{ i ->
+            println "PRINT ${i}"
+            
+          }
+  
+  
 }

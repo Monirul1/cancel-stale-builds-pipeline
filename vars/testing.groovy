@@ -24,10 +24,10 @@ def cancelStaleBuilds() {
      def buildNum = builds[i].number
      def buildBranch =  builds[i].getEnvironment().BRANCH
       
-        if (build[i].getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
-        build[i].doKill()
+        if (builds[i].getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
+        builds[i].doKill()
         println("[cancelStaleBuilds] Build Cancelled: #${buildNum} ${buildBranch}")
-        build[i].description = "Superseded by build #${currentBuildNum}"
+        builds[i].description = "Superseded by build #${currentBuildNum}"
       }
     
     }

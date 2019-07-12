@@ -10,8 +10,8 @@ def call(){
   
   list.each{ i ->
     
-    def buildNum = i.environment.get("BUILD_NUMBER")
-//    def buildBranch = i.getEnvironment().BRANCH
+    def buildNum = i.getEnvironment().BUILD_NUMBER
+    def buildBranch = i.getEnvironment().BRANCH
     
     println "PRINTTTTT ${i}"
 }

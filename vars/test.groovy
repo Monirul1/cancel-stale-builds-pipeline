@@ -23,7 +23,8 @@ def cancelStaleBuilds() {
           {
             log("INSIDE STALE BUILS OKAY")
             def buildNum = i.number
-            def buildBranch = i.getEnvironment().BRANCH
+            def buildBranch = i.getEnvironment()
+            log(buildBranch)
 
             if (i.getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
                 i.doKill()

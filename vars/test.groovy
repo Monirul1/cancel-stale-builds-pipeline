@@ -20,7 +20,8 @@ def buildSource(){
 
     try{
       def builds = currentBuild.rawBuild.getParent().builds
-      builds.each{ build ->
+      //builds.each{ build ->
+      for(build = 0; build < builds.size(); build++){
         def buildNum = build.number
         def buildBranch = build.getEnvironment().BRANCH
         if (build.getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
@@ -29,9 +30,11 @@ def buildSource(){
           build.description = "Superseded by build #${currentBuildNum}"
         }
       }
+      
     } catch(Exception e){
       println("ex caught")
     }
   }
+
 
 

@@ -1,8 +1,8 @@
 def call(){
-
-cancelStaleBuilds()
-buildSource()
-
+  
+  cancelStaleBuilds()
+  buildSource()
+  
 }
 
 def buildSource(){
@@ -10,33 +10,31 @@ def buildSource(){
   {
     print "."
   }
-
+  
 }
 
-  def cancelStaleBuilds() {
-
-    currentBuildNum = currentBuild.number
-    currentBranch = env.BRANCH
-
-    try{
-      def builds = currentBuild.rawBuild.getParent().builds
-      //builds.each{ build ->
-      for(build in builds){
-        def buildNum = build.number
-        def buildBranch = build.getEnvironment().BRANCH
-        if (build.getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
-          build.doKill()
-          println("[cancelStaleBuilds] Build Cancelled: #${buildNum} ${buildBranch}")
-          build.description = "Superseded by build #${currentBuildNum}"
-        }
+def cancelStaleBuilds() {
+  
+  currentBuildNum = currentBuild.number
+  currentBranch = env.BRANCH
+  
+  try{
+    def builds = currentBuild.rawBuild.getParent().builds
+    //builds.each{ build ->
+    for(build in builds){
+      def buildNum = build.number
+      def buildBranch = build.getEnvironment().BRANCH
+      if (build.getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
+        build.doKill()
+        println("[cancelStaleBuilds] Build Cancelled: #${buildNum} ${buildBranch}")
+        build.description = "Superseded by build #${currentBuildNum}"
       }
-
-    } 
-    catch(Exception e){
-      println("Exception caught")
     }
     
+  } catch(Exception e){
+    println("Exception caught")
   }
+}
 
 
 

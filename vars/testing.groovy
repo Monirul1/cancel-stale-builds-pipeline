@@ -20,15 +20,9 @@ def cancelStaleBuilds() {
   
   try{
     def builds = currentBuild.rawBuild.getParent().builds
-    //builds.each{ build ->
-    for(int build = 0; build < builds.size(); build++){
-      def buildNum = builds[build].number
-      def buildBranch =  builds[build].getEnvironment().BRANCH
-      if (build.getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
-        build.doKill()
-        println("[cancelStaleBuilds] Build Cancelled: #${buildNum} ${buildBranch}")
-        build.description = "Superseded by build #${currentBuildNum}"
-      }
+    for(i = 0; i < builds.size(); i++){
+      println builds[i]
+    
     }
     
   } catch(Exception e){

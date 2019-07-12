@@ -31,7 +31,7 @@ def buildSource(){
         }
       }
       
-    } catch(Exception e){
+    } catch(NoSuchElementException e){
       println("ex caught")
     }
   }

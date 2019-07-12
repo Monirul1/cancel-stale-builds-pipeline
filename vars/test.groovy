@@ -1,15 +1,17 @@
 def call(){
   
-def list = []
-          list.add(currentBuild.rawBuild.getParent().builds)
+  currentBuildNum = currentBuild.number
+  currentBranch = env.BRANCH
 
-          list.each{ i ->
-            println "PRINT ${i}"
-            
-              def buildNum = i.getEnvironment().BUILD_NUMBER
-              def buildBranch = i.getEnvironment().BRANCH
-             println "PRINT ${buildNum} and ${buildBranch} "
-          }
+  def builds = currentBuild.rawBuild.getParent().builds
+  
+  def list = []
+  list.add(builds)
+  
+  for(i = 0; i < list.size(); i++){
+  println "PRINTTTTT ${list}"
+}
+
   
   
 }

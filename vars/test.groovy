@@ -1,4 +1,4 @@
-ef call(){
+def call(){
 cancelStaleBuilds()
 buildSource()
 

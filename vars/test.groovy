@@ -18,8 +18,7 @@ def cancelStaleBuilds() {
           def list = []
           list.add(currentBuild.rawBuild.getParent().builds)
 
-          for(i = 0; i < list.size(); i++)
-          {
+          list.each{ i ->
             def buildNum = i.getEnvironment().BUILD_NUMBER
             def buildBranch = i.getEnvironment().BRANCH
 

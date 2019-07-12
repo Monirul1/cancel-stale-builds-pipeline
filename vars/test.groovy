@@ -8,8 +8,9 @@ def call(){
   def list = []
   list.add(builds)
   
-  for(i = 0; i < list.size(); i++){
-  println "PRINTTTTT ${list}"
+  list.each{ i ->
+    
+    println "PRINTTTTT ${i}"
 }
 
   

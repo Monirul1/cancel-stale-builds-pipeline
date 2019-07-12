@@ -1,6 +1,7 @@
 def call(){
-cancelStaleBuilds()
-buildSource()
+  
+  cancelStaleBuilds()
+  buildSource()
   
 }
 
@@ -11,29 +12,29 @@ def buildSource(){
   }
   
 }
+
 def cancelStaleBuilds() {
-    stage('Cancel Stale Builds') {
-        currentBuildNum = currentBuild.number
-        currentBranch = env.BRANCH
-        try {
-            currentBuild.rawBuild.getParent().builds.each {build ->
-                def buildNum = build.number
-                def buildBranch = build.getEnvironment().BRANCH
-                if (build.getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
-                    build.doKill()
-                    log("[cancelStaleBuilds] Build Cancelled: #${buildNum} ${buildBranch}")
-                    build.description = "Superseded by build #${currentBuildNum}"
-                }
-            }
-        } //catch (NoSuchElementException ex) {
-            //log('[cancelStaleBuilds] Caught NoSuchElementException. No action needed.')
-  //      } 
-    catch (Exception e) {
-           log("[cancelStaleBuilds] Caught exception: ${e}")
-        }
+  
+  currentBuildNum = currentBuild.number
+  currentBranch = env.BRANCH
+  
+  try{
+    def builds = currentBuild.rawBuild.getParent().builds
+    for(i = 0; i < builds.size(); i++){
+     def buildNum = builds[i].number
+     def buildBranch =  builds[i].getEnvironment().BRANCH
+      
+        if (builds[i].getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
+        builds[i].doKill()
+        println("[cancelStaleBuilds] Build Cancelled: #${buildNum} ${buildBranch}")
+        builds[i].description = "Superseded by build #${currentBuildNum}"
+      }
+    
     }
+    
+  } 
+    catch (Exception e) {
+           println("[cancelStaleBuilds] Caught exception: ${e}")
+        }
 }
 
-def log(String string){
-  println("* [Jenkinsfile] ${string}")
-}

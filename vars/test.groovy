@@ -1,7 +1,7 @@
-def call(){
+ef call(){
 cancelStaleBuilds()
 buildSource()
-  
+
 }
 
 def buildSource(){
@@ -9,22 +9,40 @@ def buildSource(){
   {
     print "."
   }
-  
+
 }
 def cancelStaleBuilds() {
     stage('Cancel Stale Builds') {
         currentBuildNum = currentBuild.number
         currentBranch = env.BRANCH
         try {
-            currentBuild.rawBuild.getParent().builds.each {build ->
-                def buildNum = build.number
-                def buildBranch = build.getEnvironment().BRANCH
-                if (build.getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
-                    build.doKill()
-                    log("[cancelStaleBuilds] Build Cancelled: #${buildNum} ${buildBranch}")
-                    build.description = "Superseded by build #${currentBuildNum}"
-                }
+          def list = []
+          list.add(currentBuild.rawBuild.getParent().builds)
+
+          for(i = 0; i < list.size(); i++)
+          {
+            def buildNum = i.number
+            def buildBranch = i.getEnvironment().BRANCH
+
+            if (i.getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
+                i.doKill()
+                log("[cancelStaleBuilds] Build Cancelled: #${buildNum} ${buildBranch}")
+                i.description = "Superseded by build #${currentBuildNum}"
             }
+
+          }
+
+            // currentBuild.rawBuild.getParent().builds.each {build ->
+            //     def buildNum = build.number
+            //     def buildBranch = build.getEnvironment().BRANCH
+            //     if (build.getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
+            //         build.doKill()
+            //         log("[cancelStaleBuilds] Build Cancelled: #${buildNum} ${buildBranch}")
+            //         build.description = "Superseded by build #${currentBuildNum}"
+            //     }
+            // }
+
+
         } catch (NoSuchElementException ex) {
             log('[cancelStaleBuilds] Caught NoSuchElementException. No action needed.')
         } catch (Exception e) {

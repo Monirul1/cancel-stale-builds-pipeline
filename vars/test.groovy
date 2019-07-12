@@ -12,7 +12,6 @@ def buildSource(){
 
 }
 def cancelStaleBuilds() {
-    stage('Cancel Stale Builds') {
         currentBuildNum = currentBuild.number
         currentBranch = env.BRANCH
         try {
@@ -21,10 +20,8 @@ def cancelStaleBuilds() {
 
           for(i = 0; i < list.size(); i++)
           {
-            log("INSIDE STALE BUILS OKAY")
             def buildNum = i.number
-            def buildBranch = i.getEnvironment()
-            println("MY NEVVVVVVVVV ${buildBranch}")
+            def buildBranch = i.getEnvironment().BRANCH
 
             if (i.getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
                 i.doKill()
@@ -33,24 +30,11 @@ def cancelStaleBuilds() {
             }
 
           }
-
-            // currentBuild.rawBuild.getParent().builds.each {build ->
-            //     def buildNum = build.number
-            //     def buildBranch = build.getEnvironment().BRANCH
-            //     if (build.getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {
-            //         build.doKill()
-            //         log("[cancelStaleBuilds] Build Cancelled: #${buildNum} ${buildBranch}")
-            //         build.description = "Superseded by build #${currentBuildNum}"
-            //     }
-            // }
-
-
         } catch (NoSuchElementException ex) {
             log('[cancelStaleBuilds] Caught NoSuchElementException. No action needed.')
         } catch (Exception e) {
             log("[cancelStaleBuilds] Caught exception: ${e}")
         }
-    }
 }
 
 def log(String string){

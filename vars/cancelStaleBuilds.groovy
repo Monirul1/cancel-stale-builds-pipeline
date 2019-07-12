@@ -25,9 +25,10 @@ def cancelStaleBuilds() {
                     build.description = "Superseded by build #${currentBuildNum}"
                 }
             }
-        } catch (NoSuchElementException ex) {
-            log('[cancelStaleBuilds] Caught NoSuchElementException. No action needed.')
-        } catch (Exception e) {
+        } //catch (NoSuchElementException ex) {
+            //log('[cancelStaleBuilds] Caught NoSuchElementException. No action needed.')
+  //      } 
+  catch (Exception e) {
             log("[cancelStaleBuilds] Caught exception: ${e}")
         }
     }

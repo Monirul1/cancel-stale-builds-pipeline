@@ -21,7 +21,7 @@ def buildSource(){
     try{
       def builds = currentBuild.rawBuild.getParent().builds
       //builds.each{ build ->
-      for(build : builds){
+      for(build in builds){
         def buildNum = build.number
         def buildBranch = build.getEnvironment().BRANCH
         if (build.getResult().equals(null) && currentBuildNum > buildNum && currentBranch == buildBranch) {

@@ -20,7 +20,6 @@ def buildSource(){
 
     try{
       def builds = currentBuild.rawBuild.getParent().builds
-      //builds.each{ build ->
       for(build in builds){
         def buildNum = build.number
         def buildBranch = build.getEnvironment().BRANCH
@@ -33,6 +32,9 @@ def buildSource(){
       
     } catch(NoSuchElementException e){
       println("ex caught")
+    }
+    catch(Exception e){
+      println("Exception caught")
     }
   }
 

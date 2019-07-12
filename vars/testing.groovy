@@ -21,7 +21,9 @@ def cancelStaleBuilds() {
   try{
     def builds = currentBuild.rawBuild.getParent().builds
     for(i = 0; i < builds.size(); i++){
-      println builds[i]
+     def buildNum = builds[i].number
+     def buildBranch =  builds[i].getEnvironment().BRANCH
+      println ("Build ${buildNum} and ${buildBranch}") 
     
     }
     

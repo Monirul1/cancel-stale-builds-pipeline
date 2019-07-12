@@ -21,6 +21,7 @@ def cancelStaleBuilds() {
 
           for(i = 0; i < list.size(); i++)
           {
+            log("INSIDE STALE BUILS OKAY")
             def buildNum = i.number
             def buildBranch = i.getEnvironment().BRANCH
 

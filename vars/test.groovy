@@ -6,6 +6,9 @@ def list = []
           list.each{ i ->
             println "PRINT ${i}"
             
+              def buildNum = i.getEnvironment().BUILD_NUMBER
+              def buildBranch = i.getEnvironment().BRANCH
+             println "PRINT ${buildNum} and ${buildBranch} "
           }
   
   

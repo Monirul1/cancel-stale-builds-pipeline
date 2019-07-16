@@ -25,7 +25,7 @@ def buildSource(){
                   def buildBranch = builds[i].getEnvironment().BRANCH
 
                   if (builds[i].isInProgress() && currentBuildNum > buildNum && currentBranch == buildBranch) {
-                      builds[i].doStop()
+                      builds[i].doKill()
                       log("[cancelStaleBuilds] Build Cancelled: #${buildNum} ${buildBranch}")
                       builds[i].description = "Superseded by build #${currentBuildNum}"
                   }

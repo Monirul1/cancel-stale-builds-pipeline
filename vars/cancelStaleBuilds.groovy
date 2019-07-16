@@ -33,7 +33,11 @@ def buildSource(){
           } catch (Exception e) {
               log("[cancelStaleBuilds] Caught exception: ${e}")
           }
-      }
+      }  post { 
+        always { 
+            cleanWs()
+        }
+    }
   }
 
   def log(String string) {
